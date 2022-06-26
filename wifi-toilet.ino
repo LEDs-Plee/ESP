@@ -16,7 +16,7 @@
 
 #include <Adafruit_NeoPixel.h>
 
-#define PIN        2
+#define PIN        4
 #define NUMPIXELS 30
 
 Adafruit_NeoPixel pixels(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
@@ -26,26 +26,28 @@ Adafruit_NeoPixel pixels(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
 
 const String protocol = "https://";
 const String baseUrl = "wc.67.campuslaan.nl/status/";
-const int id = 2;
-const String secret = "fvlFQ76AQX";
+const int id = 1;
+const String secret = "SECRET";
 String url;
 int freeState = 0;
 
-const char* username = "boven";
-const char* password = "toiletboven";
+const char* username = "WEB_USER";
+const char* password = "WEB_PASS";
 
 const int button = 5;
-const int buttonGround = 4;
+//const int buttonGround = 4;
 
 ESP8266WiFiMulti WiFiMulti;
 
 void setup() {
   pinMode(button, INPUT_PULLUP);
-  pinMode(buttonGround, OUTPUT);
+//  pinMode(buttonGround, OUTPUT);
 
-  digitalWrite(buttonGround, LOW);
+//  digitalWrite(buttonGround, LOW);
 
   pixels.begin();
+  pixels.fill(pixels.Color(0,0,70), 0, NUMPIXELS);
+  pixels.show();
 
   Serial.begin(115200);
   // Serial.setDebugOutput(true);
@@ -61,7 +63,7 @@ void setup() {
   }
 
   WiFi.mode(WIFI_STA);
-  WiFiMulti.addAP("The Amazing SpiderLAN", "StarkPassword3!");
+  WiFiMulti.addAP("WIFI_SSID", "WIFI_PASS");
   url = protocol + username + ":" + password + "@" + baseUrl + id + "/" + secret + "/";
   Serial.println(url);
 }
@@ -72,11 +74,12 @@ void loop() {
   Serial.println(reading);
 
   if (reading != freeState) {
+    Serial.println("changing");
 
     if(reading == LOW) {
       pixels.fill(pixels.Color(70,0,0), 0, NUMPIXELS);
     } else {
-      pixels.fill(pixels.Color(0,70,0), 0, NUMPIXELS);
+      pixels.fill(pixels.Color(0,65,5), 0, NUMPIXELS);
     }
     pixels.show();
 
