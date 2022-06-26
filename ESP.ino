@@ -36,8 +36,7 @@ const char* password = "WEB_PASS";
 
 const int button = 5;
 //const int buttonGround = 4;
-unsigned long start;
-unsigned long time;
+unsigned long startTime;
 ESP8266WiFiMulti WiFiMulti;
 
 void setup() {
@@ -78,15 +77,15 @@ void loop() {
     Serial.println("changing");
 
     if(reading == LOW) { // Door shutting
-       start = millis();
-       for (uint8_t i = 0, i <= 69, i++) {
+       startTime = millis();
+       for (uint8_t i = 0; i <= 69; i++) {
          pixels.fill(pixels.Color(i,70-i,5*(1-i/70.0)), 0, NUMPIXELS);
          pixels.show();
          delay(12);  
        }
        pixels.fill(pixels.Color(65,5,0), 0, NUMPIXELS);
     } else { // Door opening
-      for (uint8_t i = 0, i < NUMPIXELS, i++) {
+      for (uint8_t i = 0; i < NUMPIXELS; i++) {
          pixels.setPixelColor(i, pixels.Color(0,65,5));
          pixels.show();
          delay(20);
@@ -108,10 +107,11 @@ void loop() {
       https.end();
     }
   } else if (reading == LOW) { // Door shut (continuously updating)
-     time = (millis() - start)/1000; // Time in seconds
-     if (time > 12) {
-        if (time < 650) {
-           pixels.fill(pixels.Color(65-(time/15),time/10+5,0), 0, NUMPIXELS);
+     
+      unsigned long sitTime = (millis() - startTime)/1000; // Time in seconds
+     if (sitTime > 12) {
+        if (sitTime < 650) {
+           pixels.fill(pixels.Color(65-(sitTime/15),sitTime/10+5,0), 0, NUMPIXELS);
            pixels.show();
         } else {
            pixels.fill(pixels.Color(20,70,0), 0, NUMPIXELS);
