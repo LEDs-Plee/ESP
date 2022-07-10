@@ -106,19 +106,7 @@ void loop() {
       https.GET();
       https.end();
     }
-  } else if (reading == LOW) { // Door shut (continuously updating)
-     
-      unsigned long sitTime = (millis() - startTime)/1000; // Time in seconds
-     if (sitTime > 12) {
-        if (sitTime < 650) {
-           pixels.fill(pixels.Color(65-(sitTime/15),sitTime/10+5,0), 0, NUMPIXELS);
-           pixels.show();
-        } else {
-           pixels.fill(pixels.Color(20,70,0), 0, NUMPIXELS);
-           pixels.show();      
-        }
-     }
-  }
+  } 
      
   delay(DELAYVAL);
 }
