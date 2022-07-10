@@ -36,7 +36,6 @@ const char* password = "WEB_PASS";
 
 const int button = 5;
 //const int buttonGround = 4;
-unsigned long startTime;
 ESP8266WiFiMulti WiFiMulti;
 
 void setup() {
@@ -77,7 +76,6 @@ void loop() {
     Serial.println("changing");
 
     if(reading == LOW) { // Door shutting
-       startTime = millis();
        for (uint8_t i = 0; i <= 69; i++) {
          pixels.fill(pixels.Color(i,70-i,5*(1-i/70.0)), 0, NUMPIXELS);
          pixels.show();
