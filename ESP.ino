@@ -36,7 +36,6 @@ const char* password = "WEB_PASS";
 
 const int button = 5;
 //const int buttonGround = 4;
-
 ESP8266WiFiMulti WiFiMulti;
 
 void setup() {
@@ -76,10 +75,19 @@ void loop() {
   if (reading != freeState) {
     Serial.println("changing");
 
-    if(reading == LOW) {
-      pixels.fill(pixels.Color(70,0,0), 0, NUMPIXELS);
-    } else {
-      pixels.fill(pixels.Color(0,65,5), 0, NUMPIXELS);
+    if(reading == LOW) { // Door shutting
+       for (uint8_t i = 0; i <= 69; i++) {
+         pixels.fill(pixels.Color(i,70-i,5*(1-i/70.0)), 0, NUMPIXELS);
+         pixels.show();
+         delay(12);  
+       }
+       pixels.fill(pixels.Color(65,5,0), 0, NUMPIXELS);
+    } else { // Door opening
+      for (uint8_t i = 0; i < NUMPIXELS; i++) {
+         pixels.setPixelColor(i, pixels.Color(0,65,5));
+         pixels.show();
+         delay(20);
+      }
     }
     pixels.show();
 
@@ -96,6 +104,7 @@ void loop() {
       https.GET();
       https.end();
     }
-  }
+  } 
+     
   delay(DELAYVAL);
 }
