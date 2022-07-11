@@ -1,0 +1,2 @@
+#define WC_ID 1
+#define WC_SECRET "secret"

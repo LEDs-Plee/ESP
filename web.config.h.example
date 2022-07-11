@@ -1,0 +1,4 @@
+#define WIFI_SSID "ssid"
+#define WIFI_PASS "pass"
+#define WEB_USER "username"
+#define WEB_PASS "pass"
