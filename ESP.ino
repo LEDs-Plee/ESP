@@ -91,7 +91,7 @@ void loop() {
 
   timeClient.update();
   Serial.println(timeClient.getFormattedTime());
-  Serial.println(timeCleint.getDay());
+  Serial.println(timeClient.getDay());
   if (currentDay != timeClient.getDay()) { // Zondag -> Maandag : 0 -> 6 {
     currentDay = timeClient.getDay();
     numVisits = 0;
