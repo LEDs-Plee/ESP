@@ -135,6 +135,7 @@ void loop() {
       }
     }
 
+    freeState = reading;
     if ((WiFiMulti.run() == WL_CONNECTED)) {
 
       std::unique_ptr<BearSSL::WiFiClientSecure>client(new BearSSL::WiFiClientSecure);
@@ -146,7 +147,6 @@ void loop() {
       https.GET();
       https.end();
     }
-    freeState = reading;
   } else { // Steady State
     if (reading == HIGH) {// Door open (steady)
       for (int i = 0; i < NUMPIXELS; i++) {
